@@ -1,7 +1,5 @@
 const LinkedList = require('../utils/dataStructures/LinkedList')
-const initialState = {
-  type: '@@init'
-}
+const initialState = {}
 
 function State(){
   this.stateTree = new LinkedList()
