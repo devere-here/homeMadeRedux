@@ -12,4 +12,8 @@ State.prototype.getCurrentState = function(){
   return this.stateTree.tail
 }
 
+State.prototype.pushState = function(newState){
+  this.stateTree.push(newState)
+}
+
 module.exports = State

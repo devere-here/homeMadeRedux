@@ -1,16 +1,19 @@
-function Store () {}
-
-Store.prototype.getAccessToState = state => {
-  let cachedState
-  if (!cachedState) {
-    cachedState = state
-  }
-
-  return () => cachedState.getCurrentState()
+function Store (reducer) {
+  this.reducer = reducer
+  this.cachedState = null
 }
 
-Store.prototype.dispatch = (state, action) => {
-  console.log('in dispatch state is', state, 'action is', action)
+Store.prototype.getAccessToState = function(state){
+  if (!this.cachedState) {
+    this.cachedState = state
+  }
+  return () => this.cachedState.getCurrentState()
+}
+
+Store.prototype.dispatch = function(action){
+  const { cachedState, reducer } = this
+  const newState = reducer(cachedState, action)
+  cachedState.pushState(newState)
 }
 
 Store.prototype.subscribe = function() {

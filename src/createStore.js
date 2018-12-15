@@ -3,13 +3,12 @@ const State = require('./State')
 
 const createStore = (reducer) => {
 
-  const store = new Store()
+  const store = new Store(reducer)
   const state = new State()
 
   store.getState = store.getAccessToState(state)
-  console.log('get that state', store.getState())
 
   return store
 }
 
-createStore()
+module.exports = createStore
