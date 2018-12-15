@@ -10,15 +10,18 @@ Store.prototype.getAccessToState = function(state){
   if (!this.cachedState) {
     this.cachedState = state
   }
-  return () => this.cachedState.getCurrentState()
+}
+
+Store.prototype.getState = function(){
+  return this.cachedState.getCurrentState()
 }
 
 Store.prototype.dispatch = function(action){
-  const { cachedState, reducer } = this
+  const { cachedState, reducer, listeners } = this
   const newState = reducer(cachedState, action)
 
   cachedState.pushState(newState)
-  this.listeners.forEach(listener => listener())
+  listeners.forEach(listener => listener())
 }
 
 Store.prototype.subscribe = function(listener) {
@@ -29,6 +32,10 @@ Store.prototype.subscribe = function(listener) {
   return function() {
     this.listeners = this.listeners.filter(elem => elem !== listener)
   }
+}
+
+Store.prototype.replaceReducer = function(nextReducer) {
+  this.reducer = nextReducer
 }
 
 module.exports = Store
