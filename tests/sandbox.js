@@ -1,8 +1,17 @@
 const createStore = require('../src/createStore')
-const reducer = require('./utils/testReducer')
+const testReducers = require('./utils/testReducer')
+const combineReducers = require('../src/combineReducers')
+
+
+const { catReducer, dogReducer } = testReducers
+
+const reducer = combineReducers({ cat: catReducer, dog: dogReducer })
 
 const store = createStore(reducer)
 
-console.log('old state', store.getState())
-store.dispatch({ type: 'cat' })
-console.log('new state', store.getState())
+console.log('first state', store.getState())
+store.dispatch({ type: 'sad' })
+console.log('second state', store.getState())
+store.dispatch({ type: 'happy' })
+console.log('third state', store.getState())
+
