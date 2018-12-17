@@ -1,8 +1,22 @@
 const createStore = require('../src/createStore')
-const reducer = require('./utils/testReducer')
+const testReducers = require('./utils/testReducer')
+const combineReducers = require('../src/combineReducers')
+const applyMiddleware = require('../src/applyMiddleware')
 
-const store = createStore(reducer)
+const { catReducer, dogReducer } = testReducers
 
-console.log('old state', store.getState())
-store.dispatch({ type: 'cat' })
-console.log('new state', store.getState())
+const reducer = combineReducers({ cat: catReducer, dog: dogReducer })
+
+const testMiddleware = (action, dispatch, getState) => {
+  console.log('hello i am middleware')
+  dispatch(action)
+}
+
+const store = createStore(reducer, applyMiddleware(testMiddleware))
+
+console.log('first state', store.getState())
+store.dispatch({ type: 'sad' })
+console.log('second state', store.getState())
+store.dispatch({ type: 'happy' })
+console.log('third state', store.getState())
+
