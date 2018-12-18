@@ -34,8 +34,4 @@ Store.prototype.subscribe = function(listener) {
   }
 }
 
-Store.prototype.replaceReducer = function(nextReducer) {
-  this.reducer = nextReducer
-}
-
 module.exports = Store

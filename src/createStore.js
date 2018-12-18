@@ -1,4 +1,4 @@
-const Store = require('./Store')
+const Store = require('./Blorp')
 const State = require('./State')
 
 const createStore = (reducer) => {
