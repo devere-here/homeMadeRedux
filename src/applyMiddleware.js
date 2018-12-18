@@ -1,4 +1,4 @@
-function applyMiddleware (...middleware) {
+const applyMiddleware = (...middleware) => {
   return (dispatch, getState) => {
     return (action) => {
       middleware.forEach(func => {
