@@ -1,4 +1,4 @@
-function combineReducers (reducerObj) {
+const combineReducers = (reducerObj) => {
   return function (state, action) {
     const newState = {}
 
