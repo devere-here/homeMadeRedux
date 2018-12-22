@@ -1,4 +1,4 @@
-const LinkedList = require('../utils/dataStructures/LinkedList')
+const LinkedList = require('../../utils/dataStructures/LinkedList')
 const initialState = {}
 
 function State(){
