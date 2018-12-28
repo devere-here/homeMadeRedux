@@ -1,4 +1,4 @@
-const isFunction = require('../utils/helperFunctions/isFunction')
+const isFunction = require('../../utils/helperFunctions/isFunction')
 
 function Store (reducer) {
   this.reducer = reducer
@@ -18,7 +18,13 @@ Store.prototype.getState = function(){
 
 Store.prototype.dispatch = function(action){
   const { cachedState, reducer, listeners } = this
-  const newState = reducer(cachedState, action)
+
+  let newState
+  if (Object.keys(cachedState.stateTree.tail.value).length){
+    newState = reducer(action, cachedState.stateTree.tail.value)
+  } else {
+    newState = reducer(action)
+  }
 
   cachedState.pushState(newState)
   listeners.forEach(listener => listener())
