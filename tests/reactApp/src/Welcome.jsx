@@ -11,7 +11,7 @@ class Welcome extends React.Component {
 
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState().value)
+      this.setState(store.getState())
     })
   }
 

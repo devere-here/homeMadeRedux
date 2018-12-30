@@ -1,11 +1,10 @@
-const react = require('react');
+const React = require('react');
 const defaultMerge = require('./mergeProps');
-const fakeStore = {};
 
 
 const connect = (mapStateToProps, mapDispatchToProps, mergeProps = defaultMerge) => {
   // get access to store here
-  let stateProps = mapStateToProps(store.getState().value)
+  let stateProps = mapStateToProps(store.getState())
   const dispatchProps = mapDispatchToProps(store.dispatch)
   const initialProps = mergeProps(stateProps, dispatchProps)
 
@@ -15,11 +14,10 @@ const connect = (mapStateToProps, mapDispatchToProps, mergeProps = defaultMerge)
 
       componentDidMount(){
         store.subscribe(() => {
-          stateProps = mapStateToProps(store.getState().value, this.props)
+          stateProps = mapStateToProps(store.getState(), this.props)
           const nextProps = mergeProps(stateProps, dispatchProps, ownProps)
           this.setState(nextProps)
         })
-
       }
 
       render(){
@@ -29,3 +27,5 @@ const connect = (mapStateToProps, mapDispatchToProps, mergeProps = defaultMerge)
     }
   }
 }
+
+module.exports = connect
