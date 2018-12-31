@@ -1,30 +1,22 @@
 const React = require('react');
 const defaultMerge = require('./mergeProps');
-
+const Context = require('./Provider');
 
 const connect = (mapStateToProps, mapDispatchToProps, mergeProps = defaultMerge) => {
-  // get access to store here
-  let stateProps = mapStateToProps(store.getState())
-  const dispatchProps = mapDispatchToProps(store.dispatch)
-  const initialProps = mergeProps(stateProps, dispatchProps)
-
   return function (Component) {
-    return class extends React.Component {
-      state = initialProps
+    return (props) => (
+      <Context.Consumer>
+        {store => {
+          const stateProps = mapStateToProps(store.getState(), props)
+          const dispatchProps = mapDispatchToProps(store.dispatch)
+          const combinedProps = mergeProps(stateProps, dispatchProps, props)
 
-      componentDidMount(){
-        store.subscribe(() => {
-          stateProps = mapStateToProps(store.getState(), this.props)
-          const nextProps = mergeProps(stateProps, dispatchProps, ownProps)
-          this.setState(nextProps)
-        })
-      }
-
-      render(){
-        <Component props={...this.state} />
-      }
-
-    }
+          return (
+            <Component props={combinedProps} />
+          )
+        }}
+      </Context.Consumer>
+    )
   }
 }
 
