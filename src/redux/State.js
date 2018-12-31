@@ -7,7 +7,7 @@ function State(){
 }
 
 State.prototype.getCurrentState = function(){
-  return this.stateTree.tail
+  return this.stateTree.tail.value
 }
 
 State.prototype.pushState = function(newState){

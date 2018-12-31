@@ -1,3 +1,4 @@
 todo.txt
 tests/reactApp/node_modules/
 tests/reactApp/dist/
+src/react-redux/node_modules/
