@@ -1,5 +1,5 @@
 const React = require('react');
-const defaultMerge = require('./mergeProps');
+const defaultMerge = require('./utils/mergeProps');
 const Context = require('./Provider');
 
 const connect = (mapStateToProps, mapDispatchToProps, mergeProps = defaultMerge) => {
